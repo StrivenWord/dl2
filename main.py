@@ -9,5 +9,8 @@ import sys
 # def main():
 # 	# forthcoming
 
+def main():
+	# forthcoming
+
 if __name__ == "__main__":
 	main()
