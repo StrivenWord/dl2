@@ -23,10 +23,18 @@ class Room(GameObject):
 		Destination can be a Room or a callable that returns a Room
 		(for dynamic exits liike in William Tell chapter 8).
 		"""
-		self.exits[direction.lower()] = destination
+		d = {"n": "north", "s": "south", "e": "east", "w": "west",
+			"ne": "northeast", "nw": "northwest",
+			"se": "southeast", "sw": "southwest",
+			"u": "up", "d": "down", "i": "in"}.get(direction.lower(), direction.lower())
+		self.exits[d] = destination
 	# Get the room in a given direction.
 	def get_exit(self, direction: str) -> Room | None:
 		direction = direction.lower()
+		direction = {"n": "north", "s": "south", "e": "east", "w": "west",
+			"ne": "northeast", "nw": "northwest",
+			"se": "southeast", "sw": "southwest",
+			"u": "up", "d": "down", "i": "in"}.get(direction, direction)
 		if direction not in self.exits:
 			return None
 		dest = self.exits[direction]

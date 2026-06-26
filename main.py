@@ -1,16 +1,15 @@
 """
-program begin: Saturday, Jun 20, 2026 -- at 2:45 a.m. EST
-program: Dark and Drealy Lands
-re-creation in Python of a z-code IFComp entry from 2005
+Dreary Lands - Python re-creation of a Z-code IFComp entry from 2005.
 """
 
 import sys
+from dreary_lands import build_world
 
-# def main():
-# 	# forthcoming
 
 def main():
-	# forthcoming
+	world = build_world()
+	world.run()
+
 
 if __name__ == "__main__":
 	main()

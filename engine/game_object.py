@@ -19,6 +19,14 @@ class GameObject:
 		self.contents: list[GameObject] = []
 		self.attributes: set[str] = set()
 		self.aliases: list[str] = []
+
+	def place(self, parent: GameObject | None) -> None:
+		if self.location:
+			self.location.contents.remove(self)
+		self.location = parent
+		if parent:
+			parent.contents.append(self)
+
 	def __repr__(self) -> str:
 		return f"<GameObject: {self.name}>"
 	def add_alias(self, *aliases: str) -> None:
@@ -26,7 +34,7 @@ class GameObject:
 		self.aliases.extend(aliases)
 	# Boolean attributes, like in Inform 6
 	def has_attribute(self, attr: str) -> bool:
-		self.attributes.update(attrs)
+		return attr in self.attributes
 	def remove_attribute(self, attr: str) -> None:
 		self.attributes.discard(attr)
 	# Check whether objects can contain other objects
@@ -58,7 +66,7 @@ class GameObject:
 		return "light" in self.attributes
 	# Get visible contents of open containers
 	def get_contents(self) -> list[GameObject]:
-		if self.is_container() and not self.is_open()
+		if self.is_container() and not self.is_open():
 			return []  # closed containers can't list contents
 		return self.contents.copy()
 	# Before hook -- reimplementing the Inform/Hugo action loop
@@ -71,8 +79,8 @@ class GameObject:
 		# code to be run after the action comes from decorators
 		pass
 	def describe(self) -> str:
-		return self.inventory_description
-	def get_all_contents(self) -> lsit[GameObject]:
+		return self.description
+	def get_all_contents(self) -> list[GameObject]:
 		# Recursively get all nested contents.
 		result = self.contents.copy()
 		for child in self.contents:
